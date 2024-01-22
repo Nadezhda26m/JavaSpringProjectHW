@@ -17,7 +17,8 @@ public class UserRepository {
 
     public List<User> findAll() {
         String sql = "SELECT * FROM userTable";
-        return jdbc.query(sql, new UserMapper());
+        List<User> users = jdbc.query(sql, new UserMapper());
+        return users.isEmpty() ? null : users;
     }
 
     public User save(User user) {
