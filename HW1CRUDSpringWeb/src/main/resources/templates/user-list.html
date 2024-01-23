@@ -6,9 +6,9 @@
     </head>
     <body>
         <div th:switch="${users}">
+            <h1 style="color:#800000;"><u>Users</u></h1>
             <h2 th:case="null">No users found!</h2>
             <div th:case="*">
-                <h2>Users</h2>
                 <table>
                     <thead>
                     <tr>

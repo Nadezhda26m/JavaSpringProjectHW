@@ -23,7 +23,7 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = getCorrectNameOrNull(firstName);
     }
 
     public String getLastName() {
@@ -31,7 +31,18 @@ public class User {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = getCorrectNameOrNull(lastName);
+    }
+
+    private String getCorrectNameOrNull(String name) {
+        if (name != null) {
+            name = name.trim();
+            if (!name.isEmpty()) {
+                return name.substring(0, 1).toUpperCase()
+                        + name.substring(1).toLowerCase();
+            }
+        }
+        return null;
     }
 
     @Override

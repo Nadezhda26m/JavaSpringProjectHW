@@ -35,4 +35,10 @@ public class UserService {
     public User getUserById(int id) {
         return userRepository.getById(id);
     }
+
+    public boolean isCorrectUser(User user) {
+        return user != null
+                && user.getFirstName() != null
+                && user.getLastName() != null;
+    }
 }
