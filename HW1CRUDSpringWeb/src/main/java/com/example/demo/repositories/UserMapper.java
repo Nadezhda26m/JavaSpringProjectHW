@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Класс для создания сущности User из данных ResultSet
+ */
 public class UserMapper implements RowMapper<User> {
 
     @Override

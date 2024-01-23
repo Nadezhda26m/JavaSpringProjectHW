@@ -2,12 +2,24 @@ package com.example.demo.model;
 
 import java.util.Objects;
 
+/**
+ * Модель пользователя
+ */
 public class User {
 
+    /**
+     * Уникальный идентификатор пользователя
+     */
     private int id;
 
+    /**
+     * Имя пользователя
+     */
     private String firstName;
 
+    /**
+     * Фамилия пользователя
+     */
     private String lastName;
 
     public int getId() {
@@ -22,6 +34,11 @@ public class User {
         return firstName;
     }
 
+    /**
+     * Корректирование данных по шаблону.
+     * Установка имени пользователя, если получены корректные данные, или null.
+     * @param firstName имя пользователя
+     */
     public void setFirstName(String firstName) {
         this.firstName = getCorrectNameOrNull(firstName);
     }
@@ -30,10 +47,21 @@ public class User {
         return lastName;
     }
 
+    /**
+     * Корректирование данных по шаблону.
+     * Установка фамилии пользователя, если получены корректные данные, или null.
+     * @param lastName имя пользователя
+     */
     public void setLastName(String lastName) {
         this.lastName = getCorrectNameOrNull(lastName);
     }
 
+    /**
+     * Корректирование данных. Исключение пробелов в начале и конце строки.
+     * Формат строки: первая буква заглавная, остальные строчные.
+     * @param name имя/фамилия пользователя
+     * @return Корректное имя или null
+     */
     private String getCorrectNameOrNull(String name) {
         if (name != null) {
             name = name.trim();
