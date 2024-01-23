@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import com.example.demo.model.User;
+import com.example.demo.service.RepositoryInterface;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Репозиторий для хранения и получения информации о пользователях в БД (в таблице userTable).
  */
 @Repository
-public class UserRepository {
+public class UserRepository implements RepositoryInterface<User, Integer> {
 
     /**
      * Объект для создания подключения к БД.
@@ -37,6 +38,7 @@ public class UserRepository {
      * Получение списка всех пользователей из таблицы userTable.
      * @return список пользователей или null, если пользователи не найдены
      */
+    @Override
     public List<User> findAll() {
         String sql = "SELECT * FROM userTable";
         List<User> users = jdbc.query(sql, new UserMapper());
@@ -48,6 +50,7 @@ public class UserRepository {
      * @param user объект пользователя с данными имени и фамилии
      * @return объект пользователя с присвоенным ID
      */
+    @Override
     public User save(User user) {
         String sql = "INSERT INTO userTable(firstName, lastName) VALUES (?, ?)";
         jdbc.update(sql, user.getFirstName(), user.getLastName());
@@ -72,7 +75,8 @@ public class UserRepository {
      * @param id уникальный идентификатор пользователя
      * @return объект пользователя с указанным ID или null, если пользователь не найден
      */
-    public User getById(int id) {
+    @Override
+    public User getById(Integer id) {
         String sql = "SELECT * FROM userTable WHERE id=?";
         return jdbc.query(sql, new UserMapper(), id)
                 .stream().findFirst().orElse(null);
@@ -82,6 +86,7 @@ public class UserRepository {
      * Обновление данных пользователя с присвоенным ID в таблице userTable.
      * @param user объект пользователя с измененными данными имени и фамилии
      */
+    @Override
     public void update(User user) {
         String sql = "UPDATE userTable SET firstName=?, lastName=? WHERE id=?";
         jdbc.update(sql, user.getFirstName(), user.getLastName(), user.getId());
@@ -91,7 +96,8 @@ public class UserRepository {
      * Удаление пользователя из таблицы userTable по его ID.
      * @param id уникальный идентификатор пользователя
      */
-    public void deleteById(int id) {
+    @Override
+    public void deleteById(Integer id) {
         String sql = "DELETE FROM userTable WHERE id=?";
         jdbc.update(sql, id);
     }
