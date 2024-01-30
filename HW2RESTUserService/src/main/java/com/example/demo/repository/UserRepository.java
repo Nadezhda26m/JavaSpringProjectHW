@@ -6,8 +6,15 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Репозиторий для хранения пользователей
+ */
 @Component
 public class UserRepository {
+
+    /**
+     * Список пользователей
+     */
     private List<User> users = new ArrayList<>();
 
     public List<User> getUsers() {

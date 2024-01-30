@@ -1,10 +1,26 @@
 package com.example.demo.domain;
 
+/**
+ * Сущность пользователя
+ */
 public class User {
 
+    /**
+     * Имя пользователя
+     */
     private String name;
+
+    /**
+     * Возраст пользователя (количество полных лет)
+     */
     private int age;
+
+    /**
+     * Электронная почта пользователя
+     */
     private String email;
+
+    // region setter, getter
 
     public String getName() {
         return name;
@@ -29,4 +45,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    // endregion setter, getter
 }
