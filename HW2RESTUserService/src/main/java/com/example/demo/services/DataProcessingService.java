@@ -12,33 +12,39 @@ import java.util.stream.Collectors;
 @Service
 public class DataProcessingService {
 
-    public UserRepository getRepository() {
-        return repository;
-    }
-
     @Autowired
     private UserRepository repository;
 
-    public List<User> sortUsersByAge(List<User> users) {
-        return users.stream()
+    public void addUserToList(User user) {
+        repository.getUsers().add(user);
+    }
+
+    public List<User> getAllUsers() {
+        return repository.getUsers();
+    }
+
+    public List<User> sortUsersByAge() {
+        return repository.getUsers().stream()
                 .sorted(Comparator.comparing(User::getAge))
                 .collect(Collectors.toList());
     }
 
-    public List<User> filterUsersByAge(List<User> users, int age) {
-        return users.stream()
+    public List<User> getUsersWithAgeMoreThan(int age) {
+        return repository.getUsers().stream()
                 .filter(user -> user.getAge() > age)
                 .collect(Collectors.toList());
     }
 
-    public double calculateAverageAge(List<User> users) {
-        return users.stream()
+    public List<User> getUsersWithAgeLessThan(int age) {
+        return repository.getUsers().stream()
+                .filter(user -> user.getAge() < age)
+                .collect(Collectors.toList());
+    }
+
+    public double calculateAverageAge() {
+        return repository.getUsers().stream()
                 .mapToInt(User::getAge)
                 .average()
                 .orElse(0);
-    }
-
-    public void addUserToList(User user) {
-        repository.getUsers().add(user);
     }
 }

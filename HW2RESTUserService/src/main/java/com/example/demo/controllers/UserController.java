@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users") // localhost:8080/user
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -16,12 +16,20 @@ public class UserController {
 
     @GetMapping
     public List<User> userList() {
-        return service.getDataProcessingService().getRepository().getUsers();
+        return service.getDataProcessingService().getAllUsers();
     }
 
     @PostMapping("/body")
     public String userAddFromBody(@RequestBody User user) {
-        service.getDataProcessingService().getRepository().getUsers().add(user);
+        service.processRegistration(user);
         return "User added from body!";
+    }
+
+    @PostMapping("/add/{name}/{age}/{email}")
+    public String userAddFromParam(@PathVariable("name") String name,
+                                   @PathVariable("age") int age,
+                                   @PathVariable("email") String email) {
+        service.processRegistration(name, age, email);
+        return "User added from param!";
     }
 }

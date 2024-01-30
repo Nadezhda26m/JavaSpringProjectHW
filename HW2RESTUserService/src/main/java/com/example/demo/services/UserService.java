@@ -1,18 +1,14 @@
 package com.example.demo.services;
 
 import com.example.demo.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    // @Autowired
+    @Autowired
     private NotificationService notificationService;
-
-    // Внедрение зависимости через конструктор
-    public UserService(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
 
     public User createUser(String name, int age, String email) {
         User user = new User();
@@ -20,7 +16,6 @@ public class UserService {
         user.setAge(age);
         user.setEmail(email);
 
-        // Отправляем уведомление о создании нового пользователя
         notificationService.notifyUser(user);
 
         return user;
