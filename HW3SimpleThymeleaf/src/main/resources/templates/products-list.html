@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products List</title>
+</head>
+
+<body>
+    <h1 style="color:#800000;">Products</h1>
+    <div th:switch="${products}">
+        <h2 th:case="null">No products found!</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Наименование продукта</th>
+                        <th>Группа</th>
+                        <th>Партия</th>
+                        <th>Срок годности, дн.</th>
+                        <th>Количество, кг</th>
+                        <th>Годен к употреблению</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td>
+                            <a th:href="@{/products/{fg}(fg=${product.foodGroup})}"
+                               th:text="${product.foodGroup}"></a>
+                        </td>
+                        <td th:text="${product.consignment}"></td>
+                        <td th:text="${product.shelfLife}"></td>
+                        <td th:text="${product.count}"></td>
+                        <td th:text="${product.isInGoodCondition} ? 'да' : 'нет'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/products/add"><button>Add new product</button></a></p>
+    </div>
+
+</body>
+</html>
