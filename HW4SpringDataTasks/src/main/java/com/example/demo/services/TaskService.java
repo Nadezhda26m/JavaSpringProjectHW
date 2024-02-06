@@ -60,7 +60,7 @@ public class TaskService {
             findTask.setStatus(status);
             return repository.save(findTask);
         }
-        return null;
+        return findTask;
     }
 
     /**
