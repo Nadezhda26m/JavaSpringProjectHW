@@ -12,22 +12,37 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Модель задачи
+ */
 @Data
 @Entity
 @Table(name = "tasks")
 public class Task {
 
+    /**
+     * Идентификатор задачи
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Описание задачи
+     */
     @Column(nullable = false)
     private String description;
 
+    /**
+     * Статус задачи
+     */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TaskStatus status;
 
+    /**
+     * Дата создания задачи
+     */
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
 
