@@ -1,0 +1,6 @@
+create TABLE tasks (
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     description VARCHAR(256) NOT NULL,
+     status VARCHAR(20) NOT NULL DEFAULT 'NOT_STARTED',
+     create_date DATETIME NOT NULL -- YYYY-MM-DD HH:MM:SS
+);

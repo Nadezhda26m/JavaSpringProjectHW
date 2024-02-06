@@ -174,7 +174,7 @@ Dependencies:
 **_Задание со звездочкой:_**
 Проект домашнего задания для 1 семинара (CRUD приложение USER SERVICE) переписать:
 
-1. Использовать библиотеку Lomboc:
+1. Использовать библиотеку Lombok:
 
    a) @Data - для полей классов
 
@@ -185,10 +185,10 @@ Dependencies:
 2. Использовать configuration-processor для работы с настройками приложения:
 
    a) Создать объект инкапсулирующий шаблоны запросов к базе данных H2
-   
+
    b) Использовать аннотации @ConfigurationProperties и @ConfigurationPropertiesScan
    для заполнения полей этого класса
-   
+
    с) Вынести все SQL шаблоны в настройки приложения.
 
 Dependencies:
@@ -198,3 +198,83 @@ Dependencies:
 * Lombok
 * H2 Database
 * JDBC API
+
+---
+
+### HW4SpringDataTasks
+
+**_Базовое задание:_**
+
+Вам предстоит создать приложение для управления списком задач с использованием Spring Boot
+и Spring Data JPA. Требуется реализовать следующие функции:
+
+* Добавление задачи.
+
+  Подсказка метод в контроллере:
+
+      @PostMapping 
+      public Task addTask(@RequestBody Task task)
+
+* Просмотр всех задач.
+
+  Подсказка метод в контроллере:
+
+      @GetMapping 
+      public List<Task> getAllTasks()
+
+* Просмотр задач по статусу (например, "завершена", "в процессе", "не начата").
+
+  Подсказка метод в контроллере:
+
+      @GetMapping("/status/{status}") 
+      public List<Task> getTasksByStatus(@PathVariable TaskStatus status)
+
+* Изменение статуса задачи.
+
+  Подсказка метод в контроллере:
+
+      @PutMapping("/{id}") 
+      public Task updateTaskStatus(@PathVariable Long id, @RequestBody Task task)
+
+* Удаление задачи.
+
+  Подсказка метод в контроллере:
+
+      @DeleteMapping("/{id}")
+      public void deleteTask(@PathVariable Long id)
+
+Репозиторий подсказка
+
+      public interface TaskRepository extends JpaRepository<Task, Long>
+
+Структура задачи (класс Task):
+
+- ID (автоинкрементное)(тип Long)
+- Описание (не может быть пустым)(тип String)
+- Статус (одно из значений: "не начата", "в процессе", "завершена")(Тип TaskStatus )
+- Дата создания (автоматически устанавливается при создании задачи)(Тип LocalDateTime)
+
+Подсказка понадобится энумератор:
+
+      enum TaskStatus {
+         NOT_STARTED, IN_PROGRESS, COMPLETED;
+      }
+
+**_Проверка решения в Postman**_
+
+1. (GET) http://localhost:8080/tasks - получение списка всех задач
+2. (POST) http://localhost:8080/tasks - добавление задачи
+
+        {
+        "description": "описание 1"
+        }
+3. (PUT) http://localhost:8080/tasks/1 - изменение статуса задачи по ID
+
+        {
+        "status": "IN_PROGRESS"
+        }
+4. (GET) http://localhost:8080/tasks/status/NOT_STARTED - просмотр задач с определенным статусом
+
+   (GET) http://localhost:8080/tasks/status/IN_PROGRESS
+
+5. (DELETE) http://localhost:8080/tasks/2 - удаление задачи по ID
