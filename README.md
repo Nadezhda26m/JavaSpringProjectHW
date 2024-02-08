@@ -260,7 +260,7 @@ Dependencies:
          NOT_STARTED, IN_PROGRESS, COMPLETED;
       }
 
-**_Проверка решения в Postman**_
+**_Проверка решения в Postman_**
 
 1. (GET) http://localhost:8080/tasks - получение списка всех задач
 2. (POST) http://localhost:8080/tasks - добавление задачи
@@ -278,3 +278,62 @@ Dependencies:
    (GET) http://localhost:8080/tasks/status/IN_PROGRESS
 
 5. (DELETE) http://localhost:8080/tasks/2 - удаление задачи по ID
+
+Dependencies:
+
+* Spring Web
+* H2 Database
+* Spring Data JPA
+* Lombok
+
+
+---
+
+### HW5SpringDataNotes
+
+**_Базовое задание:_**
+
+Разработайте небольшое веб-приложение на Spring Boot, которое будет представлять
+из себя сервис для учета личных заметок. Приложение должно поддерживать следующие функции:
+
+1. Добавление заметки. (Подсказка @PostMapping )
+2. Просмотр всех заметок.(Подсказка @GetMapping )
+3. Получение заметки по id. (Подсказка @GetMapping("/{id}"))
+4. Редактирование заметки.(Подсказка @PutMapping("/{id}"))
+5. Удаление заметки.(Подсказка @DeleteMapping("/{id}"))
+
+Все методы контроллера возвращают ResponseEntity.
+
+Структура заметки:
+
+* ID (автоинкрементное)(тип - Long)
+* Заголовок (не может быть пустым)(тип - String)
+* Содержимое (не может быть пустым)(тип - String)
+* Дата создания (автоматически устанавливается при создании заметки)(тип - LocalDateTime)
+
+**_Проверка решения в Postman_**
+
+1. (POST) http://localhost:8080/notes - создание заметки
+
+        {
+        "title": "Title 1",
+        "text": "Text 1"
+        }
+2. (GET) http://localhost:8080/notes - получение списка всех заметок
+3. (GET) http://localhost:8080/notes/1 - получение заметки по ID
+4. (PUT) http://localhost:8080/notes/1 - редактирование заметки 
+
+        {
+        "title": "Title 1",
+        "text": "New text 1"
+        }
+5. (DELETE) http://localhost:8080/notes/1 - удаление заметки по ID
+
+Dependencies:
+
+* Spring Web
+* H2 Database
+* Spring Data JPA
+* Lombok
+
+---
