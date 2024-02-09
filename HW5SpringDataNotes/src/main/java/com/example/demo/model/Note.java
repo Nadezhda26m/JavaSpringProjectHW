@@ -12,6 +12,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Сущность 'Заметка', привязанная к таблице 'notes' в базе данных
+ */
 @Entity
 @Table(name = "notes")
 @Getter
@@ -19,19 +22,34 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Note {
 
+    /**
+     * Уникальный идентификатор заметки
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Заголовок заметки
+     */
     @Column(nullable = false)
     private String title;
 
+    /**
+     * Описание (содержание) заметки
+     */
     @Column(nullable = false)
     private String text;
 
+    /**
+     * Дата создания заметки
+     */
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
 
+    /**
+     * Конструктор для задания заголовка и описания заметки
+     */
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
