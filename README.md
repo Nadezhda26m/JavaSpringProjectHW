@@ -286,7 +286,6 @@ Dependencies:
 * Spring Data JPA
 * Lombok
 
-
 ---
 
 ### HW5SpringDataNotes
@@ -329,11 +328,15 @@ Dependencies:
         }
 5. (DELETE) http://localhost:8080/notes/1 - удаление заметки по ID
 
+SWAGGER: http://localhost:8080/swagger-ui.html
+
 Dependencies:
 
 * Spring Web
-* H2 Database
+* H2 Database / PostgreSQL Driver
 * Spring Data JPA
 * Lombok
+* SpringDoc OpenAPI Starter WebMVC UI
 
 ---
+
