@@ -39,7 +39,7 @@
                         <td th:text="${product.id}"></td>
                         <td th:text="${product.name}"></td>
                         <td>
-                            <a th:href="@{/products/{fg}(fg=${product.foodGroup})}"
+                            <a th:href="@{/products/food-group?name={fg}(fg=${product.foodGroup})}"
                                th:text="${product.foodGroup}"></a>
                         </td>
                         <td th:text="${product.consignment}"></td>

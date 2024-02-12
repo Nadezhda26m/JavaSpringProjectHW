@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Контроллер для работы с страницами склада пищевых продуктов
@@ -64,13 +65,13 @@ public class ProductController {
     /**
      * Получение справочной информации о группе продуктов.
      *
-     * @param group название группы продуктов (из пути)
+     * @param groupName название группы продуктов (из пути)
      * @param model модель для передачи данных в представление
      * @return представление с информацией о группе продуктов
      */
-    @GetMapping("/{fg}")
-    public String showFoodGroup(@PathVariable("fg") String group, Model model) {
-        model.addAttribute("group", group);
+    @GetMapping("/food-group")
+    public String showFoodGroup(@RequestParam("name") String groupName, Model model) {
+        model.addAttribute("groupName", groupName);
         return "food-group-products";
     }
 }
