@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Products List</title>
+</head>
+
+<body>
+    <h2 style="color: green">
+        <i><<< Страница доступна всем аутентифицированным пользователям >>></i>
+    </h2>
+    <div sec:authorize="isAuthenticated()">
+        <h3>Вы вошли как "<span sec:authentication="name"></span>", роль:
+            <span sec:authorize="hasRole('ADMIN')">Admin</span>
+            <span sec:authorize="hasRole('WORKER')">Worker</span>
+            <span sec:authorize="hasRole('USER')">User</span>
+        </h3>
+    </div>
+    <h1 style="color:#800000;">Продукты</h1>
+    <div th:switch="${products}">
+        <h2 th:case="null">Нет найденных продуктов!</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Наименование продукта</th>
+                        <th>Группа</th>
+                        <th>Партия</th>
+                        <th>Срок годности, дн.</th>
+                        <th>Количество, кг</th>
+                        <th>Годен к употреблению</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td>
+                            <a th:href="@{/products/{fg}(fg=${product.foodGroup})}"
+                               th:text="${product.foodGroup}"></a>
+                        </td>
+                        <td th:text="${product.consignment}"></td>
+                        <td th:text="${product.shelfLife}"></td>
+                        <td th:text="${product.count}"></td>
+                        <td th:text="${product.isInGoodCondition} ? 'да' : 'нет'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p sec:authorize="hasRole('ADMIN')">
+            <a href="/products/add"><button>Добавить продукт</button></a>
+        </p>
+    </div>
+
+    <p><a href="/"><button>Главная страница</button></a></p>
+    <form th:action="@{/home-logout}" method="post">
+        <input type="submit" value="Выйти"/>
+    </form>
+</body>
+</html>

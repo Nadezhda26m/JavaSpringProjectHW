@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>New product</title>
+</head>
+<body>
+    <h2 style="color: green"><i><<< Страница доступна только для админов >>></i></h2>
+    <div sec:authorize="isAuthenticated()">
+        <h3>Вы вошли как "<span sec:authentication="name"></span>", роль:
+            <span sec:authorize="hasRole('ADMIN')">Admin</span>
+            <span sec:authorize="hasRole('WORKER')">Worker</span>
+            <span sec:authorize="hasRole('USER')">User</span>
+        </h3>
+    </div>
+    <h1 style="color:#800000;">Форма создания продукта</h1>
+
+    <div>
+        <form action="#" th:action="@{/products/add}" th:object="${product}" method="post">
+            <div>
+                <label for="name">Название продукта</label>
+                <input type="text" th:field="*{name}" id="name" placeholder="Картофель">
+            </div>
+            <div>
+                <label for="foodGroup">Группа</label>
+                <input type="text" th:field="*{foodGroup}" id="foodGroup" placeholder="Овощи">
+            </div>
+            <div>
+                <label for="consignment">Партия</label>
+                <input type="text" th:field="*{consignment}" id="consignment" placeholder="123">
+            </div>
+            <div>
+                <label for="isPieceProduct">Продукт штучный?</label>
+                <input type="checkbox" th:field="${product.isPieceProduct}" id="isPieceProduct"/>
+            </div>
+            <div>
+                <label for="count">Количество, кг</label>
+                <input type="number" th:field="*{count}" id="count" min="0" max="100" step="0.001">
+            </div>
+            <div>
+                <a href="/products"><input type="submit" value="Добавить продукт"></a>
+            </div>
+        </form>
+    </div>
+
+    <p><a href="/products"><button>Вернуться к списку продуктов</button></a></p>
+</body>
+</html>

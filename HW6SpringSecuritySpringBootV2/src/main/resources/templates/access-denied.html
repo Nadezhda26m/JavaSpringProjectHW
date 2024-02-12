@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+    <h2>Доступ запрещен!</h2>
+    <img src="/stop.png" alt="Access Denied">
+    <p>Доступ к запрашиваемой странице запрещен!</p>
+    <p>Пожалуйста, убедитесь в наличии прав доступа к запрашиваемому ресурсу
+        или пройдите аутентификацию.</p>
+    <a th:href="@{/login}"><button>Войти</button></a>
+    <span th:if="${!#strings.isEmpty(lastPage)}">
+        <a th:href="@{${lastPage}}"><button>Вернуться на предыдущую страницу</button></a>
+    </span>
+
+</body>
+</html>

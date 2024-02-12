@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Food group</title>
+</head>
+<body>
+    <h2 style="color: green"><i><<< На эту страницу не может зайти обычный пользователь >>></i></h2>
+    <div sec:authorize="isAuthenticated()">
+        <h3>Вы вошли как "<span sec:authentication="name"></span>", роль:
+            <span sec:authorize="hasRole('ADMIN')">Admin</span>
+            <span sec:authorize="hasRole('WORKER')">Worker</span>
+            <span sec:authorize="hasRole('USER')">User</span>
+        </h3>
+    </div>
+    <h1 style="color:#800000;">Информация о группе продуктов</h1>
+    <p><b>Название: </b><i><span th:text="${group}"></span></i></p>
+    <p><b>Температура хранения: </b></p>
+    <p><b>Влажность: </b></p>
+
+    <p><a href="/products"><button>Вернуться к списку продуктов</button></a></p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Product storage</title>
+</head>
+<body>
+    <h2 style="color: green"><i><<< Страница доступна всем >>></i></h2>
+    <div sec:authorize="isAuthenticated()">
+        <h3>Вы вошли как "<span sec:authentication="name"></span>", роль:
+            <span sec:authorize="hasRole('ADMIN')">Admin</span>
+            <span sec:authorize="hasRole('WORKER')">Worker</span>
+            <span sec:authorize="hasRole('USER')">User</span>
+        </h3>
+    </div>
+
+    <h1>Вы папали на сайт склада пищевых продуктов</h1>
+    <p sec:authorize="!isAuthenticated()">
+        Для просмотра списка продуктов на складе войдите в учетную запись
+    </p>
+    <p sec:authorize="isAuthenticated()">
+        <a href="/products"><button>Склад пищевых продуктов</button></a>
+    </p><br>
+    <a sec:authorize="!isAuthenticated()" href="/login"><button>Войти</button></a>
+    <form sec:authorize="isAuthenticated()" th:action="@{/home-logout}" method="post">
+        <input type="submit" value="Выйти"/>
+    </form>
+
+</body>
