@@ -4,6 +4,7 @@ import com.kirin.demo.model.Task;
 import com.kirin.demo.model.TaskStatus;
 import com.kirin.demo.services.TaskService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class TaskController {
      * @return список задач
      */
     @GetMapping
-    public List<Task> getAllTasks() {
-        return service.getAllTasks();
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok().body(service.getAllTasks());
     }
 
     /**
@@ -36,8 +37,8 @@ public class TaskController {
      * @return добавленная задача
      */
     @PostMapping
-    public Task addTask(@RequestBody Task task) {
-        return service.addTask(task);
+    public ResponseEntity<Task> addTask(@RequestBody Task task) {
+        return ResponseEntity.ok().body(service.addTask(task));
     }
 
     /**
@@ -46,8 +47,8 @@ public class TaskController {
      * @return список задач с указанным статусом
      */
     @GetMapping("/status/{status}")
-    public List<Task> getTasksByStatus(@PathVariable TaskStatus status) {
-        return service.getTasksByStatus(status);
+    public ResponseEntity<List<Task>> getTasksByStatus(@PathVariable TaskStatus status) {
+        return ResponseEntity.ok().body(service.getTasksByStatus(status));
     }
 
     /**
@@ -57,8 +58,8 @@ public class TaskController {
      * @return измененная задача
      */
     @PutMapping("/{id}")
-    public Task updateTaskStatus(@PathVariable Long id, @RequestBody Task task) {
-        return service.updateTaskStatus(id, task.getStatus());
+    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @RequestBody Task task) {
+        return ResponseEntity.ok().body(service.updateTaskStatus(id, task.getStatus()));
     }
 
     /**
@@ -66,7 +67,8 @@ public class TaskController {
      * @param id идентификатор задачи
      */
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         service.deleteTaskByID(id);
+        return ResponseEntity.ok().build();
     }
 }
